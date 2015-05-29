@@ -85,6 +85,7 @@ void ListDirectory( String dir = "/")
 
 ###class FlashAir
 FlashAirアクセスの出発点になるクラスです。
+
 メンバ名                          | 内容
 --------------------------------|----------------
 FlashAir(String baseUrl)	| コンストラクタ
@@ -97,6 +98,7 @@ GetFile( String path )          | ファイルを System.IO.Stream としてダ�
 
 
 ### class Command
+
 型                          | メンバ名 | 内容
 --------------------------------|----------------|----
 IEnumerable`<FileInfo`> 		| FileList( String dir ) | dir（ディレクトリ）内のファイルの一覧
@@ -104,6 +106,7 @@ int						| FileCount( String dir) | dir(ディレクトリ）内のファイル�
 その他 | 設定情報などを取得するメソッドまたはプロパティ
 
 ###class Thumbnail
+
 型                          | メンバ名 | 内容
 --------------------------------|----------------|----
 Stream | Get( String path ) | path で指定した画像のサムネイル画像ファイルを Stream として取得
@@ -115,6 +118,7 @@ String | GetUrl( FileInfo file ) | FileListで取得したFileInfoを引数に�
 複数の設定を同時に送信できる仕様にのっとり、Configクラスのメンバ（プロパティ）にセットした内容を Submit( String mastercode ) で送信します。
 
 ###class Upload
+
 型                          | メンバ名 | 内容
 --------------------------------|----------------|----
 bool | UploadFile() | Streamとfilenameからファイルをアップロード
@@ -124,6 +128,7 @@ bool | SetSystemTime() | システムの時刻設定。
 bool | SetWriteProtect()| 
 ###class FileInfo
 `Command.FileList()`　でファイルを列挙した際のファイル情報を格納します。
+
 型		| 名前	| 内容
 ----------------|-------|------------
 String		| Directory | ディレクトリ
