@@ -88,12 +88,12 @@ FlashAirアクセスの出発点になるクラスです。
 メンバ名                          | 内容
 --------------------------------|----------------
 FlashAir(String baseUrl)		|コンストラクタ
-Command | command.cgi への呼び出し
-Thumbnail | thumbnail.cgi への呼び出し
-Config| config.cgi への呼び出し
-Upload | upload.cgi への呼び出し
-GetFile( FileInfo file ) | ファイルを System.IO.Stream としてダウンロード
-GetFile( String path ) | ファイルを System.IO.Stream としてダウンロード
+Command                         | command.cgi への呼び出し
+Thumbnail                       | thumbnail.cgi への呼び出し
+Config                          | config.cgi への呼び出し
+Upload                          | upload.cgi への呼び出し
+GetFile( FileInfo file )        | ファイルを System.IO.Stream としてダウンロード
+GetFile( String path )          | ファイルを System.IO.Stream としてダウンロード
 
 
 ### class Command
@@ -124,12 +124,12 @@ bool| SetSystemTime() | システムの時刻設定。
 bool|SetWriteProtect()| 
 ###class FileInfo
 `Command.FileList()`　でファイルを列挙した際のファイル情報を格納します。
-型 | 名前|内容
-----------|-----|------
-String | Directory | ディレクトリ
-String | Name | ファイル名またはディレクトリ名
-long | Size | サイズ
-DateTime | Time | ファイルの日付
+型            | 名前  | 内容
+--------------|------|------------
+String        | Directory | ディレクトリ
+String        | Name | ファイル名またはディレクトリ名
+long          | Size | サイズ
+DateTime      | Time | ファイルの日付
 FileAttribute | Attributes | ファイルの属性情報のフラグ
 
 改定履歴
