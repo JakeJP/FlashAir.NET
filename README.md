@@ -87,7 +87,7 @@ void ListDirectory( String dir = "/")
 FlashAirアクセスの出発点になるクラスです。
 メンバ名                          | 内容
 --------------------------------|----------------
-FlashAir(String baseUrl)		|コンストラクタ
+FlashAir(String baseUrl)	| コンストラクタ
 Command                         | command.cgi への呼び出し
 Thumbnail                       | thumbnail.cgi への呼び出し
 Config                          | config.cgi への呼び出し
@@ -118,19 +118,19 @@ String | GetUrl( FileInfo file ) | FileListで取得したFileInfoを引数に�
 型                          | メンバ名 | 内容
 --------------------------------|----------------|----
 bool | UploadFile() | Streamとfilenameからファイルをアップロード
-bool| DeleteFile() | ファイルの削除
-bool| SetUploadDirectory() | アップロードディレクトリの指定
-bool| SetSystemTime() | システムの時刻設定。
-bool|SetWriteProtect()| 
+bool | DeleteFile() | ファイルの削除
+bool | SetUploadDirectory() | アップロードディレクトリの指定
+bool | SetSystemTime() | システムの時刻設定。
+bool | SetWriteProtect()| 
 ###class FileInfo
 `Command.FileList()`　でファイルを列挙した際のファイル情報を格納します。
-型            | 名前  | 内容
---------------|------|------------
-String        | Directory | ディレクトリ
-String        | Name | ファイル名またはディレクトリ名
-long          | Size | サイズ
-DateTime      | Time | ファイルの日付
-FileAttribute | Attributes | ファイルの属性情報のフラグ
+型		| 名前	| 内容
+----------------|-------|------------
+String		| Directory | ディレクトリ
+String		| Name	| ファイル名またはディレクトリ名
+long		| Size	| サイズ
+DateTime	| Time	| ファイルの日付
+FileAttribute	| Attributes	| ファイルの属性情報のフラグ
 
 改定履歴
 -------------
