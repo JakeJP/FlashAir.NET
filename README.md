@@ -3,7 +3,7 @@
 
 WiFi対応のSDメモリカードである [TOSHIBA FlashAir(TM)](http://www.toshiba.co.jp/p-media/flashair/) のAPIに接続するための.NET版クラスライブラリです。
 
-FlashAirのAPIの詳細はTOSHIBAの[開発者サイト](https://flashair-developers.com/ja/)で公開されています。各APIの仕様を尊重しつつ、.NET的にデータを取扱い安いようにメソッドの名前、パラメーターなどを再構成しています。
+FlashAirのAPIの詳細はTOSHIBAの[開発者サイト](https://flashair-developers.com/ja/)で公開されています。ネットワークの通信（HTTP)は完全にカプセル化されています。また各APIの仕様を尊重しつつ、.NET的にデータを取扱い安いようにメソッドの名前、パラメーターなどを再構成しています。
 
 .NET Portable ライブラリの形式でまとめてあるので、一般の.NETアプリケーションをはじめ、Windows Storeアプリ、Windows Phone、ASP.NETウェブアプリなど幅広い用途に使用できます。
 
