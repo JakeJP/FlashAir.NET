@@ -20,9 +20,15 @@ namespace FlashAirClient
         {
             using (var client = new HttpClient())
             {
-                var content = new MultipartFormDataContent();
-                content.Add( new StreamContent(fileStream), "file", filename );
-                return client.PostAsync(BaseUrl, content).Result.Content.ReadAsStringAsync().Result == "SUCCESS";
+                var content = new MultipartFormDataContent("abcdefg");
+                // Since FlashAir does not cusume filename without quotation enclosure and utf-8 filename*=...
+                // we have to rebuild header line.
+                var sc = new StreamContent(fileStream);
+                sc.Headers.Add("Content-Type", "application/octed-stream");
+                sc.Headers.Add("Content-Disposition", "form-data; name=\"file\"; filename=\"" + filename + "\"");
+                content.Add( sc, "file", filename);
+                var response = client.PostAsync(BaseUrl, content).Result.Content.ReadAsStringAsync().Result;
+                return response != null && (response.Contains("Success") || response.Contains("SUCCESS"));
             }
         }
         public bool DeleteFile( String path )
