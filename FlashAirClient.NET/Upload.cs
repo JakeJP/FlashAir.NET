@@ -25,6 +25,12 @@ namespace FlashAirClient
                 // we have to rebuild header line.
                 var sc = new StreamContent(fileStream);
                 sc.Headers.Add("Content-Type", "application/octed-stream");
+                // Trick to handle non-ascii file name.
+                var bytes = Encoding.UTF8.GetBytes(filename);
+                var filename_safe = new Char[bytes.Length];
+                for (int i = 0; i < bytes.Length; i++) filename_safe[i] = Convert.ToChar(bytes[i]);
+                filename = new string( filename_safe );
+                //
                 sc.Headers.Add("Content-Disposition", "form-data; name=\"file\"; filename=\"" + filename + "\"");
                 content.Add( sc, "file", filename);
                 var response = client.PostAsync(BaseUrl, content).Result.Content.ReadAsStringAsync().Result;
