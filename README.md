@@ -9,14 +9,14 @@ FlashAirのAPIの詳細はTOSHIBAの[開発者サイト](https://flashair-develo
 
 ライブラリの設計ポリシーとして、メソッドやプロパティの名称は、オリジナルのAPIを尊重しつつ英語としてわかりやすいものに置き換える。時刻情報やフラグは DateTime、 Enum などに、バイナリ（ファイル）の転送には System.IO.Streamを使うなど、.NETネイティブなオブジェクト表現に置き換えしています。
 
-###Target
+### Target
 - .NET Framework 4
 - Silverlight 5
 - Windows 8
 - Windows Phone 8.1
 - Windows Phone Silverlight 8
 
-###Requirement
+### Requirement
 - .NET 4.0以降
 - 依存パッケージ Microsoft.Net.Http (Microsoft.Bcl/Microsoft.Bcl.Build)
 
@@ -83,7 +83,7 @@ void ListDirectory( String dir = "/")
 ---------------------
 `namespace FlashAirClient;`
 
-###class FlashAir
+### class FlashAir
 FlashAirアクセスの出発点になるクラスです。
 
 メンバ名                          | 内容
@@ -105,7 +105,7 @@ IEnumerable`<FileInfo`> 		| FileList( String dir ) | dir（ディレクトリ）
 int						| FileCount( String dir) | dir(ディレクトリ）内のファイル数取得
 その他 | 設定情報などを取得するメソッドまたはプロパティ
 
-###class Thumbnail
+### class Thumbnail
 
 型                          | メンバ名 | 内容
 --------------------------------|----------------|----
@@ -117,7 +117,7 @@ String | GetUrl( FileInfo file ) | FileListで取得したFileInfoを引数に�
 
 複数の設定を同時に送信できる仕様にのっとり、Configクラスのメンバ（プロパティ）にセットした内容を Submit( String mastercode ) で送信します。
 
-###class Upload
+### class Upload
 
 型                          | メンバ名 | 内容
 --------------------------------|----------------|----
@@ -126,7 +126,7 @@ bool | DeleteFile() | ファイルの削除
 bool | SetUploadDirectory() | アップロードディレクトリの指定
 bool | SetSystemTime() | システムの時刻設定。
 bool | SetWriteProtect()| 
-###class FileInfo
+### class FileInfo
 `Command.FileList()`　でファイルを列挙した際のファイル情報を格納します。
 
 型		| 名前	| 内容
@@ -139,6 +139,8 @@ FileAttribute	| Attributes	| ファイルの属性情報のフラグ
 
 改定履歴
 -------------
+-  v3.0.0.3 (2017.7.25)
+   upload.cgi W-04で互換性の問題を修正
 -  v3.0.0.2 (2017.1.18)
    upload.cgi で Non-ASCII ファイル名のハンドリング追加
 -  v3.0.0.1 (2016.10.12)
