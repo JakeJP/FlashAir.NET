@@ -1,6 +1,8 @@
 ﻿/*
  * The MIT License (MIT)
  * Copyright (c) 2015 Yokinsoft http://www.yo-ki.com
+ * History:
+ *  2017.7.25 updated for W-04 compatibility
  */
 using System;
 using System.Collections.Generic;
@@ -18,20 +20,28 @@ namespace FlashAirClient
 
         public bool UploadFile( Stream fileStream, String filename )
         {
+            string boundary = "----faClient" + DateTime.Now.Ticks.ToString("x");
             using (var client = new HttpClient())
             {
-                var content = new MultipartFormDataContent("abcdefg");
+                var content = new MultipartFormDataContent(boundary);
+                // Since FlashAir W-04 does not accept quoted bounary string. This trick is nescessary.
+                content.Headers.Remove("Content-Type");
+                content.Headers.TryAddWithoutValidation("Content-Type", "multipart/form-data; boundary=" + boundary);
+
                 // Since FlashAir does not cusume filename without quotation enclosure and utf-8 filename*=...
                 // we have to rebuild header line.
                 var sc = new StreamContent(fileStream);
-                sc.Headers.Add("Content-Type", "application/octed-stream");
+#if true 
                 // Trick to handle non-ascii file name.
+                // If your platform cannot handle multibyte characters correctly, exclude following lines might work.
                 var bytes = Encoding.UTF8.GetBytes(filename);
                 var filename_safe = new Char[bytes.Length];
                 for (int i = 0; i < bytes.Length; i++) filename_safe[i] = Convert.ToChar(bytes[i]);
                 filename = new string( filename_safe );
-                //
-                sc.Headers.Add("Content-Disposition", "form-data; name=\"file\"; filename=\"" + filename + "\"");
+#endif
+                // Strange behavior of W-04: Content-Type must come after Content-Disposition!!
+                sc.Headers.Add("Content-Disposition", @"form-data; name=""file""; filename=""" + filename + @"""");
+                sc.Headers.Add("Content-Type", "application/octed-stream");
                 content.Add( sc, "file", filename);
                 var response = client.PostAsync(BaseUrl, content).Result.Content.ReadAsStringAsync().Result;
                 return response != null && (response.Contains("Success") || response.Contains("SUCCESS"));
