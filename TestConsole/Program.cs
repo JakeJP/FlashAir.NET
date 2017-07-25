@@ -14,7 +14,7 @@ namespace TestConsole
     class Program
     {
         const String FlashAirUrl = "http://flashair/";
-        const String MasterCode = "30a8db9b4fd4";
+        const String MasterCode = "2c56dc7699bb";
         int depth = 0;
         FlashAir fa;
         void Run()
@@ -41,12 +41,23 @@ namespace TestConsole
                 }
             }
 
-            if (Wait("upload.cgi FTIME 設定(Y/n)"))
+            var dt = DateTime.Now;
+            Console.Write($"upload.cgi FTIME 設定({dt})..");
             {
-                if (fa.Upload.SetSystemTime(DateTime.Now))
+                if (fa.Upload.SetSystemTime(dt))
                 {
                     Console.WriteLine("...成功");
                 }
+            }
+            Console.Write("setting WRITEPROTECT on...");
+            if( fa.Upload.SetWriteProtect())
+            {
+                Console.WriteLine("...成功");
+            }
+            Console.Write("setting UPDIR=/...");
+            if( fa.Upload.SetUploadDirectory("/"))
+            {
+                Console.WriteLine("...成功");
             }
             if (Wait("/3db5a8f5.jpg を削除(Y/n)"))
             {
@@ -61,7 +72,8 @@ namespace TestConsole
             }
             if (Wait("/flashairLogo_official_small.png をアップロード(Y/n)"))
             {
-                using (var fs = System.IO.File.OpenRead(@"flashairLogo_official_small.png"))
+                var img = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"flashairLogo_official_small.png");
+                using (var fs = System.IO.File.OpenRead(img))
                 {
                     if (fa.Upload.UploadFile(fs, "flashairLogo_official_small.png"))
                     {
@@ -105,12 +117,22 @@ namespace TestConsole
                     {
                         Console.WriteLine(String.Format("{0} x {1} {2}", ex.Width, ex.Height, ex.Orientation));
                         Console.WriteLine(fa.GetFileUrl(file));
-                        using (var fileStream = fa.GetFile(file))
+                        try
                         {
-                            using ( var reader = new System.IO.StreamReader(fileStream))
+                            if (ex.Width > 0 && ex.Height > 0 && ex.Orientation != 0)
                             {
-                                reader.ReadToEnd();
+                                using (var fileStream = fa.GetFile(file))
+                                {
+                                    using (var reader = new System.IO.StreamReader(fileStream))
+                                    {
+                                        reader.ReadToEnd();
+                                    }
+                                }
                             }
+                        }
+                        catch ( Exception ex1)
+                        {
+                            Console.WriteLine("Exception: " + ex1.Message);
                         }
                     }
                     if (st != null)
